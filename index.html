@@ -247,6 +247,40 @@
     .review-card{flex-basis:82vw;}
   }
 
+  /* ---------- Gallery / Our Furry Friends ---------- */
+  .gallery { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .gallery-card {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    border: 1px solid var(--line);
+    background: var(--surface-2);
+  }
+  .gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .gallery-card:hover img {
+    transform: scale(1.05);
+  }
+  .gallery-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 12px 16px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
   /* ---------- Contact ---------- */
   .contact{
     display:grid; grid-template-columns:0.9fr 1.1fr; gap:56px;
@@ -318,6 +352,7 @@
       <a href="#services">Services</a>
       <a href="#pricing">Pricing</a>
       <a href="#reviews">Reviews</a>
+      <a href="#gallery">Our Guests</a>
       <a href="#contact">Contact</a>
     </nav>
     <a class="nav-cta" href="#contact" id="navCta">
@@ -350,7 +385,6 @@
       </div>
     </div>
     <div class="hero-art">
-      <!-- หากมีรูปภาพ สามารถเปลี่ยน hero.jpg เป็นชื่อไฟล์รูปภาพบน GitHub ได้ครับ -->
       <img src="hero.jpg" alt="TamaKana PetCare Cat" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80';">
     </div>
   </div>
@@ -522,6 +556,35 @@
             <span class="who-name">Michelle K.</span>
             <span class="who-date">Jun 20, 2026</span>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- Photo Gallery / Our Furry Friends ---------- -->
+  <section class="gallery" id="gallery">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Our Furry Friends 🐾</h2>
+        <p>Meet some of the lovely cats we've had the pleasure of caring for!</p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-card">
+          <img src="client1.jpg" alt="Client Cat 1" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=600&q=80';">
+          <div class="gallery-caption">Milo &amp; Otis</div>
+        </div>
+        <div class="gallery-card">
+          <img src="client2.jpg" alt="Client Cat 2" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1533738363-b7f9aef128ce?auto=format&fit=crop&w=600&q=80';">
+          <div class="gallery-caption">Luna</div>
+        </div>
+        <div class="gallery-card">
+          <img src="client3.jpg" alt="Client Cat 3" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=600&q=80';">
+          <div class="gallery-caption">Oliver</div>
+        </div>
+        <div class="gallery-card">
+          <img src="client4.jpg" alt="Client Cat 4" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=600&q=80';">
+          <div class="gallery-caption">Leo</div>
         </div>
       </div>
     </div>
