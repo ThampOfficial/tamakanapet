@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TamaKana PetCare — Drop-in Visits &amp; Cat Boarding in Vancouver</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F3EFE6;
+    --surface: #FFFCF6;
+    --surface-2: #EAE2D0;
+    --ink: #232E27;
+    --ink-soft: #56635A;
+    --sage: #62735A;
+    --sage-deep: #47563F;
+    --ochre: #C4813A;
+    --ochre-deep: #A9691F;
+    --line: #D9CFB8;
+    --max: 1100px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    margin:0;
+    color:var(--ink);
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 28px;}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(243,239,230,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px; max-width:var(--max); margin:0 auto;
+  }
+  .brand{
+    font-family:'Fraunces', serif; font-weight:600; font-size:20px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand .paw{width:22px; height:22px; flex-shrink:0;}
+  .nav-links{display:flex; gap:28px; font-size:15px;}
+  .nav-links a{text-decoration:none; color:var(--ink-soft); transition:color .15s;}
+  .nav-links a:hover{color:var(--sage-deep);}
+  .nav-cta{
+    background:var(--sage-deep); color:#fff; padding:9px 18px; border-radius:99px;
+    font-size:14px; text-decoration:none; font-weight:500;
+    display:inline-flex; align-items:center; gap:7px;
+  }
+  .nav-cta:hover{background:#3a4733;}
+  .menu-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+  .menu-toggle svg{width:24px; height:24px; color:var(--ink);}
+
+  @media (max-width: 760px){
+    .nav-links{
+      position:absolute; top:100%; left:0; right:0;
+      background:var(--surface); flex-direction:column; gap:0;
+      border-bottom:1px solid var(--line);
+      display:none;
+    }
+    .nav-links.open{display:flex;}
+    .nav-links a{padding:14px 28px; border-top:1px solid var(--line); width:100%;}
+    .menu-toggle{display:block;}
+    .nav-cta{display:none;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:72px 0 64px;
+    display:grid; grid-template-columns:1.05fr 0.85fr; gap:56px; align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(34px, 5vw, 54px);
+    line-height:1.12;
+  }
+  .hero h1 em{font-style:italic; color:var(--sage-deep); font-weight:500;}
+  .hero p.lede{
+    margin-top:22px; font-size:18px; color:var(--ink-soft); max-width:46ch;
+  }
+  .hero-ctas{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:9px;
+    padding:14px 26px; border-radius:99px; text-decoration:none;
+    font-size:15.5px; font-weight:500; border:1px solid transparent;
+    transition:transform .15s ease, background .15s ease;
+    cursor:pointer;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-whatsapp{background:var(--sage-deep); color:#fff;}
+  .btn-whatsapp:hover{background:#3a4733;}
+  .btn-ghost{background:transparent; color:var(--ink); border-color:var(--line);}
+  .btn-ghost:hover{border-color:var(--sage-deep); color:var(--sage-deep);}
+  .btn svg{width:18px; height:18px;}
+
+  .hero-trust{margin-top:28px; display:flex; gap:22px; flex-wrap:wrap; font-size:14px; color:var(--ink-soft);}
+  .hero-trust span{display:flex; align-items:center; gap:7px;}
+  .hero-trust svg{width:16px; height:16px; color:var(--ochre-deep); flex-shrink:0;}
+
+  .hero-art{position:relative; aspect-ratio:1/1;}
+
+  /* ---------- Section shared ---------- */
+  section{padding:76px 0;}
+  .section-head{max-width:56ch; margin-bottom:44px;}
+  .section-head h2{font-size:clamp(26px, 3.4vw, 36px);}
+  .section-head p{margin-top:12px; color:var(--ink-soft); font-size:16.5px;}
+
+  /* ---------- Services ---------- */
+  .services{background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .service-list{display:flex; flex-direction:column; gap:0;}
+  .service-row{
+    display:grid; grid-template-columns:64px 1fr 1fr; gap:36px;
+    padding:40px 0; border-top:1px solid var(--line);
+    align-items:start;
+  }
+  .service-row:first-child{border-top:none;}
+  .service-icon{
+    width:56px; height:56px; border-radius:16px;
+    background:var(--surface-2); display:flex; align-items:center; justify-content:center;
+    color:var(--sage-deep);
+  }
+  .service-icon svg{width:28px; height:28px;}
+  .service-row h3{font-size:23px; margin-bottom:10px;}
+  .service-row .desc p{color:var(--ink-soft); margin:0 0 10px;}
+  .service-meta{font-size:14px; color:var(--ink-soft);}
+  .service-list-items{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:9px;}
+  .service-list-items li{display:flex; gap:9px; font-size:15px; color:var(--ink);}
+  .service-list-items svg{width:17px; height:17px; color:var(--ochre-deep); flex-shrink:0; margin-top:2px;}
+
+  @media (max-width: 720px){
+    .service-row{grid-template-columns:48px 1fr; }
+    .service-row > div:last-child{grid-column:1/-1;}
+    .hero{grid-template-columns:1fr;}
+    .hero-art{order:-1; max-width:280px; margin:0 auto;}
+  }
+
+  /* ---------- Pricing ---------- */
+  .price-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:20px;
+    padding:8px 0; overflow:hidden;
+  }
+  .price-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:20px 32px; border-top:1px dashed var(--line);
+  }
+  .price-row:first-child{border-top:none;}
+  .price-row .name{font-size:17px;}
+  .price-row .name small{display:block; color:var(--ink-soft); font-size:13.5px; margin-top:3px; font-weight:400;}
+  .price-row .amount{font-family:'Fraunces', serif; font-size:22px; color:var(--sage-deep); white-space:nowrap; padding-left:20px;}
+  .price-note{margin-top:18px; font-size:14px; color:var(--ink-soft);}
+
+  /* ---------- Rate calculator ---------- */
+  .rate-calc{
+    background:var(--surface); border:1px solid var(--line); border-radius:20px;
+    padding:28px 32px 32px;
+  }
+  .rate-calc-head{display:flex; align-items:center; gap:10px; margin-bottom:22px;}
+  .rate-calc-head svg{width:20px; height:20px; color:var(--ochre-deep); flex-shrink:0;}
+  .rate-calc-head span{font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--ochre-deep);}
+  .rate-fields{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;}
+  .rate-field label{display:block; font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:7px;}
+  .rate-field select{
+    width:100%; font-family:'Work Sans', sans-serif; font-size:15px; color:var(--ink);
+    background:var(--bg); border:1px solid var(--line); border-radius:10px;
+    padding:11px 14px; appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2356635A' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 12px center; background-size:16px;
+    cursor:pointer;
+  }
+  .rate-field select:focus{outline:2px solid var(--sage-deep); outline-offset:1px;}
+  .rate-field.is-hidden{display:none;}
+  .rate-result{
+    margin-top:24px; padding:22px 26px; border-radius:16px;
+    background:var(--surface-2); display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
+  }
+  .rate-result-left .rate-label{font-size:14px; color:var(--ink-soft);}
+  .rate-result-left .rate-tier{font-size:13px; color:var(--ink-soft); margin-top:2px;}
+  .rate-result-right{text-align:right;}
+  .rate-price-row{display:flex; align-items:baseline; gap:9px; justify-content:flex-end;}
+  .rate-was{font-size:16px; color:var(--ink-soft); text-decoration:line-through; opacity:.7;}
+  .rate-amount{font-family:'Fraunces', serif; font-size:30px; color:var(--sage-deep);}
+  .rate-unit{font-size:14px; color:var(--ink-soft);}
+  .rate-save-badge{
+    display:inline-block; margin-top:6px; background:var(--sage-deep); color:#fff;
+    font-size:12px; font-weight:600; padding:3px 11px; border-radius:99px;
+  }
+  .rate-toggle-full{
+    display:inline-block; margin-top:18px; font-size:14px; color:var(--sage-deep);
+    text-decoration:underline; cursor:pointer; background:none; border:none; padding:0; font-family:inherit;
+  }
+  @media (max-width:640px){
+    .rate-fields{grid-template-columns:1fr;}
+    .rate-result{flex-direction:column; align-items:flex-start;}
+    .rate-result-right{text-align:left;}
+    .rate-price-row{justify-content:flex-start;}
+  }
+
+  /* ---------- Reviews ---------- */
+  .reviews{background:var(--surface-2); overflow:hidden;}
+  .review-track{
+    display:flex; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding:6px 28px 22px; margin:0 -28px;
+  }
+  .review-track::-webkit-scrollbar{height:8px;}
+  .review-track::-webkit-scrollbar-thumb{background:var(--line); border-radius:99px;}
+  .review-card{
+    background:var(--surface); border-radius:18px; padding:24px;
+    border:1px solid var(--line);
+    flex:0 0 300px; scroll-snap-align:start;
+    display:flex; flex-direction:column;
+  }
+  .review-card-top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px;}
+  .stars{display:flex; gap:3px; color:var(--ochre);}
+  .stars svg{width:16px; height:16px;}
+  .review-tag{
+    font-size:11.5px; font-weight:600; color:var(--sage-deep); background:var(--surface-2);
+    border:1px solid var(--line); padding:3px 10px; border-radius:99px; white-space:nowrap;
+  }
+  .review-card p.quote{font-size:14.5px; color:var(--ink); margin:0 0 18px; flex-grow:1;}
+  .review-who{display:flex; align-items:baseline; justify-content:space-between; gap:10px; padding-top:14px; border-top:1px dashed var(--line);}
+  .review-who .who-name{font-size:14.5px; font-weight:600;}
+  .review-who .who-date{font-size:12.5px; color:var(--ink-soft); white-space:nowrap;}
+
+  @media (max-width: 860px){
+    .review-track{padding:6px 20px 22px; margin:0 -20px;}
+    .review-card{flex-basis:82vw;}
+  }
+
+  /* ---------- Contact ---------- */
+  .contact{
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:56px;
+  }
+  .contact-left h2{font-size:clamp(26px,3.4vw,36px);}
+  .contact-left p{color:var(--ink-soft); margin-top:14px; max-width:42ch;}
+  .whatsapp-box{
+    margin-top:30px; background:var(--sage-deep); color:#fff; border-radius:20px;
+    padding:28px; display:flex; align-items:center; gap:18px;
+  }
+  .whatsapp-box svg{width:38px; height:38px; flex-shrink:0;}
+  .whatsapp-box .num{font-family:'Fraunces', serif; font-size:20px;}
+  .whatsapp-box .lbl{font-size:13px; opacity:0.85;}
+  .whatsapp-box a.link-btn{
+    margin-left:auto; background:#fff; color:var(--sage-deep); padding:10px 18px;
+    border-radius:99px; text-decoration:none; font-size:14px; font-weight:600; white-space:nowrap;
+  }
+
+  form.contact-form{
+    background:var(--surface); border:1px solid var(--line); border-radius:20px; padding:32px;
+  }
+  .field{margin-bottom:18px;}
+  .field label{display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:7px;}
+  .field input, .field textarea, .field select{
+    width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--line);
+    background:var(--bg); font-family:inherit; font-size:15px; color:var(--ink);
+  }
+  .field input:focus, .field textarea:focus, .field select:focus{
+    outline:2px solid var(--sage); outline-offset:1px;
+  }
+  .field textarea{resize:vertical; min-height:90px;}
+  .form-row{display:flex; gap:14px;}
+  .form-row .field{flex:1;}
+  .submit-btn{
+    width:100%; background:var(--ochre-deep); color:#fff; border:none; padding:15px;
+    border-radius:99px; font-size:15.5px; font-weight:600; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:9px;
+  }
+  .submit-btn:hover{background:#8f5717;}
+  .form-note{font-size:13px; color:var(--ink-soft); margin-top:12px; text-align:center;}
+
+  @media (max-width: 820px){
+    .contact{grid-template-columns:1fr;}
+    .whatsapp-box{flex-wrap:wrap;}
+    .whatsapp-box a.link-btn{margin-left:0;}
+  }
+
+  /* ---------- Footer ---------- */
+  footer{border-top:1px solid var(--line); padding:32px 0; }
+  .foot-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;}
+  .foot-row .brand{font-size:16px;}
+  footer .copy{font-size:13.5px; color:var(--ink-soft);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .btn:hover{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      <svg class="paw" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 10.2c1.1 0 2-1.1 2-2.5s-.9-2.5-2-2.5-2 1.1-2 2.5.9 2.5 2 2.5zm5.3-1.5c1.1 0 2-1.2 2-2.7S10.9 3.3 9.8 3.3s-2 1.2-2 2.7 .9 2.7 2 2.7zm4.4 0c1.1 0 2-1.2 2-2.7s-.9-2.7-2-2.7-2 1.2-2 2.7 .9 2.7 2 2.7zm4.3 1.5c1.1 0 2-1.1 2-2.5s-.9-2.5-2-2.5-2 1.1-2 2.5.9 2.5 2 2.5zM12 11c-2.9 0-6.8 3.4-6.8 6.3 0 1.5 1.1 2.4 2.6 2.4 1.1 0 1.9-.6 2.9-.6.8 0 1.6.6 2.8.6 1.6 0 3.1-.9 3.1-2.6 0-2.9-3.7-6.1-6.6-6.1z"/></svg>
+      TamaKana PetCare
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="#services">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-cta" href="#contact" id="navCta">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.48 1.32 5L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/></svg>
+      Message us
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- ---------- Hero ---------- -->
+  <div class="wrap hero">
+    <div>
+      <h1>When you're away, <em>your cat still isn't alone</em></h1>
+      <p class="lede">Drop-in visits at your place to feed, scoop, and play — or a home-away-from-home boarding stay at ours. Free travel within 4km of Science World, and we send a photo update every visit.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-whatsapp" href="https://wa.me/66813999389" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.48 1.32 5L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/></svg>
+          Message us on WhatsApp
+        </a>
+        <a class="btn btn-ghost" href="#pricing">See pricing</a>
+      </div>
+      <div class="hero-trust">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> 120+ Vancouver homes served</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Free travel within 4km of Science World</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Photo update every visit</span>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 400 400" width="100%">
+        <circle cx="200" cy="200" r="190" fill="#EAE2D0"/>
+        <path d="M120 260c0-70 40-120 80-120s80 50 80 120c0 30-30 45-80 45s-80-15-80-45z" fill="#C4813A"/>
+        <path d="M150 148l-14-38 34 22z" fill="#C4813A"/>
+        <path d="M250 148l14-38-34 22z" fill="#C4813A"/>
+        <circle cx="178" cy="205" r="7" fill="#232E27"/>
+        <circle cx="222" cy="205" r="7" fill="#232E27"/>
+        <path d="M192 222c4 6 12 6 16 0" stroke="#232E27" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M150 235q-30 5-45-5M250 235q30 5 45-5" stroke="#232E27" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
+        <path d="M170 305c-10 20-10 40 5 55M230 305c10 20 10 40-5 55" stroke="#47563F" stroke-width="10" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ---------- Services ---------- -->
+  <section class="services" id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Pick what fits your cat</h2>
+        <p>Some cats are happiest in their own home. Others do better with company around all day. We offer both, so you can choose based on your cat's personality — not just what's convenient for us.</p>
+      </div>
+
+      <div class="service-list">
+        <div class="service-row">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+          </div>
+          <div>
+            <h3>Drop-in visits at your home</h3>
+            <div class="desc">
+              <p>Best for shy cats or cats who don't do well with a change of environment. We come to you at the times you book — feed, fresh water, litter, and playtime — all in familiar surroundings.</p>
+              <div class="service-meta">Choose 20–30 min or 1 hour per visit · flexible time windows</div>
+            </div>
+          </div>
+          <ul class="service-list-items">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Feeding on your cat's usual schedule</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Litter box scooped and cleaned</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> 10–15 minutes of play or cuddles</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Photo sent after every visit</li>
+          </ul>
+        </div>
+
+        <div class="service-row">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/></svg>
+          </div>
+          <div>
+            <h3>Boarding at our home</h3>
+            <div class="desc">
+              <p>Best for social cats, or if you'd rather not have someone coming into your place while you're away. Your cat gets their own space in a real home, with someone around all day — not a kennel.</p>
+              <div class="service-meta">1-night minimum · limited cats per stay so everyone gets attention</div>
+            </div>
+          </div>
+          <ul class="service-list-items">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Separate space per household — no forced mixing</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Comfortable giving vet-prescribed medication</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Daily photo or video update</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Pickup/drop-off available nearby</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- Pricing ---------- -->
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Pricing</h2>
+        <p>Pick your service below and see the rate instantly. All prices in CAD.</p>
+      </div>
+
+      <div class="rate-calc">
+        <div class="rate-calc-head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span>Check your rate</span>
+        </div>
+        <div class="rate-fields">
+          <div class="rate-field">
+            <label for="rService">Service</label>
+            <select id="rService">
+              <option value="dropin">Drop-in visit</option>
+              <option value="boarding">Boarding at our home</option>
+              <option value="pickup">Pickup / drop-off</option>
+            </select>
+          </div>
+          <div class="rate-field" id="rCatsField">
+            <label for="rCats">Number of cats</label>
+            <select id="rCats">
+              <option value="1">1 cat</option>
+              <option value="2">2 cats</option>
+            </select>
+          </div>
+          <div class="rate-field" id="rLengthField">
+            <label for="rLength">Visit length</label>
+            <select id="rLength">
+              <option value="30">30 minutes</option>
+              <option value="60">60 minutes</option>
+            </select>
+          </div>
+          <div class="rate-field" id="rTierField">
+            <label for="rTier" id="rTierLabel">Number of visits</label>
+            <select id="rTier">
+              <option value="low">1–13</option>
+              <option value="high">14+</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="rate-result">
+          <div class="rate-result-left">
+            <div class="rate-label" id="rResultLabel">Drop-in visit · 1 cat · 30 min</div>
+            <div class="rate-tier" id="rResultTier">1–13 visits</div>
+          </div>
+          <div class="rate-result-right">
+            <div class="rate-price-row">
+              <span class="rate-was" id="rWas" style="display:none;"></span>
+              <span class="rate-amount" id="rAmount">$22.00</span>
+              <span class="rate-unit" id="rUnit">per visit</span>
+            </div>
+            <span class="rate-save-badge" id="rSaveBadge" style="display:none;"></span>
+          </div>
+        </div>
+      </div>
+
+      <button class="rate-toggle-full" id="rToggleFull" type="button">See the full price list ↓</button>
+
+      <div class="price-card" id="rFullTable" style="display:none; margin-top:16px;">
+        <div class="price-row"><div class="name">Drop-in · 1 cat · 30 min<small>1–13 visits</small></div><div class="amount">$22.00</div></div>
+        <div class="price-row"><div class="name">Drop-in · 1 cat · 30 min<small>14+ visits — save 10%</small></div><div class="amount">$20.00</div></div>
+        <div class="price-row"><div class="name">Drop-in · 1 cat · 60 min<small>1–13 visits</small></div><div class="amount">$32.00</div></div>
+        <div class="price-row"><div class="name">Drop-in · 1 cat · 60 min<small>14+ visits — save 10%</small></div><div class="amount">$30.00</div></div>
+        <div class="price-row"><div class="name">Drop-in · 2 cats · 30 min<small>1–13 visits</small></div><div class="amount">$29.00</div></div>
+        <div class="price-row"><div class="name">Drop-in · 2 cats · 30 min<small>14+ visits — save 10%</small></div><div class="amount">$27.00</div></div>
+        <div class="price-row"><div class="name">Drop-in · 2 cats · 60 min<small>1–13 visits</small></div><div class="amount">$39.00</div></div>
+        <div class="price-row"><div class="name">Drop-in · 2 cats · 60 min<small>14+ visits — save 10%</small></div><div class="amount">$37.00</div></div>
+        <div class="price-row"><div class="name">Boarding · 1 cat<small>1–13 nights</small></div><div class="amount">$25.00</div></div>
+        <div class="price-row"><div class="name">Boarding · 1 cat<small>14+ nights — save 15%</small></div><div class="amount">$22.00</div></div>
+        <div class="price-row"><div class="name">Boarding · 2 cats<small>1–13 nights</small></div><div class="amount">$35.00</div></div>
+        <div class="price-row"><div class="name">Boarding · 2 cats<small>14+ nights — save 15%</small></div><div class="amount">$32.00</div></div>
+        <div class="price-row"><div class="name">Pickup / drop-off<small>Round trip</small></div><div class="amount">$15.00</div></div>
+      </div>
+
+      <p class="price-note">* Drop-in visits are free within 4km of Science World. Beyond that, travel is an extra $1/km. Cats needing daily medication or extra care, or households with 3+ cats, may have a small add-on fee — just let us know the details when you message us.</p>
+    </div>
+  </section>
+
+  <script>
+  (function(){
+    var RATES = {
+      dropin: {
+        unit: "per visit",
+        tierLabel: "Number of visits",
+        tierOptions: [["low","1–13"],["high","14+"]],
+        prices: {
+          "1-30-low": 22.00, "1-30-high": 20.00,
+          "1-60-low": 32.00, "1-60-high": 30.00,
+          "2-30-low": 29.00, "2-30-high": 27.00,
+          "2-60-low": 39.00, "2-60-high": 37.00
+        },
+        discount: { high: 10 }
+      },
+      boarding: {
+        unit: "per night",
+        tierLabel: "Number of nights",
+        tierOptions: [["low","1–13"],["high","14+"]],
+        prices: {
+          "1-null-low": 25.00, "1-null-high": 22.00,
+          "2-null-low": 35.00, "2-null-high": 32.00
+        },
+        discount: { high: 15 }
+      },
+      pickup: { unit: "per trip", flat: 15.00 }
+    };
+
+    var el = {
+      service: document.getElementById('rService'),
+      cats: document.getElementById('rCats'),
+      length: document.getElementById('rLength'),
+      tier: document.getElementById('rTier'),
+      catsField: document.getElementById('rCatsField'),
+      lengthField: document.getElementById('rLengthField'),
+      tierField: document.getElementById('rTierField'),
+      tierLabel: document.getElementById('rTierLabel'),
+      resultLabel: document.getElementById('rResultLabel'),
+      resultTier: document.getElementById('rResultTier'),
+      amount: document.getElementById('rAmount'),
+      was: document.getElementById('rWas'),
+      unit: document.getElementById('rUnit'),
+      saveBadge: document.getElementById('rSaveBadge'),
+      toggleFull: document.getElementById('rToggleFull'),
+      fullTable: document.getElementById('rFullTable')
+    };
+
+    var serviceNames = { dropin: "Drop-in visit", boarding: "Boarding at our home", pickup: "Pickup / drop-off" };
+    var tierWord = { dropin: "visits", boarding: "nights" };
+
+    function fmt(n){ return "$" + n.toFixed(2); }
+
+    function render(){
+      var service = el.service.value;
+      var cats = el.cats.value;
+      var length = el.length.value;
+      var tier = el.tier.value;
+
+      el.catsField.classList.toggle('is-hidden', service === 'pickup');
+      el.lengthField.classList.toggle('is-hidden', service !== 'dropin');
+      el.tierField.classList.toggle('is-hidden', service === 'pickup');
+
+      if(service === 'pickup'){
+        el.resultLabel.textContent = "Pickup / drop-off";
+        el.resultTier.textContent = "Round trip";
+        el.amount.textContent = fmt(RATES.pickup.flat);
+        el.unit.textContent = RATES.pickup.unit;
+        el.was.style.display = 'none';
+        el.saveBadge.style.display = 'none';
+        return;
+      }
+
+      var conf = RATES[service];
+      var key = cats + "-" + (service === 'dropin' ? length : 'null') + "-" + tier;
+      var price = conf.prices[key];
+      var lowKey = cats + "-" + (service === 'dropin' ? length : 'null') + "-low";
+      var lowPrice = conf.prices[lowKey];
+
+      var label = serviceNames[service] + " · " + cats + " cat" + (cats === "2" ? "s" : "");
+      if(service === 'dropin') label += " · " + length + " min";
+      el.resultLabel.textContent = label;
+
+      var tierText = (tier === 'high' ? "14+" : "1–13") + " " + tierWord[service];
+      el.resultTier.textContent = tierText;
+
+      el.amount.textContent = fmt(price);
+      el.unit.textContent = conf.unit;
+
+      if(tier === 'high'){
+        el.was.textContent = fmt(lowPrice);
+        el.was.style.display = 'inline';
+        el.saveBadge.textContent = "Save " + conf.discount.high + "%";
+        el.saveBadge.style.display = 'inline-block';
+      } else {
+        el.was.style.display = 'none';
+        el.saveBadge.style.display = 'none';
+      }
+    }
+
+    [el.service, el.cats, el.length, el.tier].forEach(function(input){
+      input.addEventListener('change', render);
+    });
+
+    el.toggleFull.addEventListener('click', function(){
+      var showing = el.fullTable.style.display !== 'none';
+      el.fullTable.style.display = showing ? 'none' : 'block';
+      el.toggleFull.textContent = showing ? 'See the full price list ↓' : 'Hide full price list ↑';
+    });
+
+    render();
+  })();
+  </script>
+
+  <!-- ---------- Reviews ---------- -->
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What Vancouver cat owners say</h2>
+        <p>Real reviews from past clients — swipe to see more.</p>
+      </div>
+      <div class="review-track">
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Drop-In Visits</span>
+          </div>
+          <p class="quote">Tama and Kana are the best catsitters ever! They were so responsive and sent us incredible and comprehensive photos. Not only did they take great care of our cats, but they also went above and beyond in caring for our home too. We will book again and you should too!</p>
+          <div class="review-who">
+            <span class="who-name">Sarah L.</span>
+            <span class="who-date">Sep 16, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Boarding</span>
+          </div>
+          <p class="quote">This sitter was so far above my expectations that I wish I could give them 10 stars! Amazing communication, with pictures and videos sent a few times every day. I could see in my two cats eyes how much attention and playtime they were getting and how happy they were. Both my little ones are back home and they are happy and healthy and it&#x27;s like they had their own vacation while I had mine ❤️</p>
+          <div class="review-who">
+            <span class="who-name">Brian S.</span>
+            <span class="who-date">Sep 11, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Drop-In Visits</span>
+          </div>
+          <p class="quote">Thank you for watching our two kitties twice now! They were super well loved and got lots of photos taken 😈</p>
+          <div class="review-who">
+            <span class="who-name">Georgia H.</span>
+            <span class="who-date">Sep 07, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Drop-In Visits</span>
+          </div>
+          <p class="quote">Tama and Kana followed instructions and shared lots of photos and videos of our kitty while we were away. Thanks so much. We&#x27;ll definitely use them again!</p>
+          <div class="review-who">
+            <span class="who-name">Laurie B.</span>
+            <span class="who-date">Sep 07, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Drop-In Visits</span>
+          </div>
+          <p class="quote">Excellent cat sitters! So prepared and organized, and my cats loved them right away. I felt very secure leaving my guys with them.</p>
+          <div class="review-who">
+            <span class="who-name">Adrienne F.</span>
+            <span class="who-date">Sep 01, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Drop-In Visits</span>
+          </div>
+          <p class="quote">I&#x27;m very happy I have finally found a wonderful sitter I can trust and rely on to care for my two cats. Instructions were followed to the tee and she was extremely responsive and sent lots of photos – the cats were very happy playing with her. I would absolutely book again and recommend them.</p>
+          <div class="review-who">
+            <span class="who-name">Vera L.</span>
+            <span class="who-date">Aug 30, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Drop-In Visits</span>
+          </div>
+          <p class="quote">Tama and Kana took great care of our two cats. They are reliable and have great communication! I got regularly updates on medication, food, litter, and playtime. They cleaned up litter and cat mess too. They even brought a laser to play with the cats. My normally shy cat took to them and I was reassured to have their care!</p>
+          <div class="review-who">
+            <span class="who-name">Bonnie V.</span>
+            <span class="who-date">Aug 27, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Boarding</span>
+          </div>
+          <p class="quote">Tama and Kana were simply amazing! We&#x27;ve left Simba and Maple with many sitters, but they never came back so relaxed and happy! We got constant updates and could have a really nice time knowing our cats were in such good hands!</p>
+          <div class="review-who">
+            <span class="who-name">Marina &amp; Leandro L.</span>
+            <span class="who-date">Aug 26, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Drop-In Visits</span>
+          </div>
+          <p class="quote">Tama and Kana did a fantastic and thorough job at checking in on my cat. Thanks for all the photos and detailed checks of what was done during the visits! :)</p>
+          <div class="review-who">
+            <span class="who-name">Ariel T.</span>
+            <span class="who-date">Aug 19, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Drop-In Visits</span>
+          </div>
+          <p class="quote">Amazing care from Tama &amp; Kana. They look after our cat so well and give him lots of love. Great communication as well. Thank you</p>
+          <div class="review-who">
+            <span class="who-name">Richard W.</span>
+            <span class="who-date">Aug 17, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Boarding</span>
+          </div>
+          <p class="quote">This is my first time using Rover and I could not be happier. All requirements are fulfilled :). Easy communication and very fast responses. Definitely will use them again. 100000% RECOMMENDED.</p>
+          <div class="review-who">
+            <span class="who-name">Wic C.</span>
+            <span class="who-date">Jul 28, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Boarding</span>
+          </div>
+          <p class="quote">Tama and Kana were wonderful with Masir and made sure he was happy and comfortable. They took many photos records to show how content Masir was. This kept me up to date and ensured me that Masir was in good hands. Will definitely use them again when my fur baby needs taking care of.</p>
+          <div class="review-who">
+            <span class="who-name">Liana B.</span>
+            <span class="who-date">Jul 28, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Boarding</span>
+          </div>
+          <p class="quote">Our cat was very loved and looked after. Lots of communication and photos sent.</p>
+          <div class="review-who">
+            <span class="who-name">Stacey W.</span>
+            <span class="who-date">Jul 27, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Drop-In Visits</span>
+          </div>
+          <p class="quote">These sitters did an incredible job taking care of my senior cat for more than two weeks. They sent daily updates with photos and brought my shy cat out of his shell, and took excellent care of my home. They went above and beyond and I would absolutely recommend them to anyone.</p>
+          <div class="review-who">
+            <span class="who-name">Michelle G.</span>
+            <span class="who-date">Jul 23, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Drop-In Visits</span>
+          </div>
+          <p class="quote">Very professional, caring, and responsive. I really appreciated the updates on my fur babies while I was away and would book them again! 🐱</p>
+          <div class="review-who">
+            <span class="who-name">Brenna F.</span>
+            <span class="who-date">Jul 22, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Drop-In Visits</span>
+          </div>
+          <p class="quote">Tama &amp; Kana are amazing. Our cat Rafiki loves them and that can be seen in how happy he is in the videos they send. They go the extra mile and clearly communicate and are very accommodating. We are already a repeat customer</p>
+          <div class="review-who">
+            <span class="who-name">Richard W.</span>
+            <span class="who-date">Jul 14, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Boarding</span>
+          </div>
+          <p class="quote">Incredibly accommodating. Thank you!</p>
+          <div class="review-who">
+            <span class="who-name">Matt G.</span>
+            <span class="who-date">Jul 13, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Boarding</span>
+          </div>
+          <p class="quote">Tama and Kana took care of our cat for two weeks, and I couldn&#x27;t be happier with the care they provided. They spoon-fed my cat for the first few days when he was getting used to the new place, and they sent me lots of photos and videos throughout the day. At the end of the stay, Hagrid (my cat) was sleeping on their bed! I&#x27;m going to ask them to care of Hagrid next time we need to go on a vacation for sure 😊</p>
+          <div class="review-who">
+            <span class="who-name">Boae H.</span>
+            <span class="who-date">Jul 12, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Drop-In Visits</span>
+          </div>
+          <p class="quote">Tama and Kana are the best! My shy cat took to them immediately and they took excellent care of her. They&#x27;re great communicators, sent photos and updates every day, and are just generally lovely people. Would absolutely recommend!!</p>
+          <div class="review-who">
+            <span class="who-name">Erika B.</span>
+            <span class="who-date">Jul 04, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Dog Walking</span>
+          </div>
+          <p class="quote">The best dog walkers♡ Zeke always had such a good time with them 🙂</p>
+          <div class="review-who">
+            <span class="who-name">Friederike B.</span>
+            <span class="who-date">Jun 24, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Boarding</span>
+          </div>
+          <p class="quote">Tama and Kana are the absolute best!! Our cat stayed in their home for 5 days and he was so happy and well looked after. We got so many pictures and you can tell they are huge animal lovers! Having them look after our boy gave us so much peace of mind, I cannot recommend them enough! 10/10</p>
+          <div class="review-who">
+            <span class="who-name">Sarah M.</span>
+            <span class="who-date">Jun 24, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Boarding</span>
+          </div>
+          <p class="quote">This was our first time using Rover and our experience was excellent. They took such great care of our cat. They constantly sent videos and pictures throughout the experience. At first, our cat was nervous and was not eating. They were very patient with him and quickly got him feeling at home. We could not have asked for a better experience and will be using their services again!</p>
+          <div class="review-who">
+            <span class="who-name">Navneet S.</span>
+            <span class="who-date">Jun 22, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Boarding</span>
+          </div>
+          <p class="quote">they sent lots of pics of him having a great time! informative pics too about my pet&#x27;s health. Great work! Thank you</p>
+          <div class="review-who">
+            <span class="who-name">Steve M.</span>
+            <span class="who-date">Jun 21, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Boarding</span>
+          </div>
+          <p class="quote">These lovely humans are the BEST cat sitters you will ever find. They gave me so many updates and I was brought so much comfort by all the videos and photos. You can tell they treat the pets like family! I know my kitty will miss her vacation with them so much, but we will see these wonderful sitters again. 5 stars!!!!</p>
+          <div class="review-who">
+            <span class="who-name">Natasha C.</span>
+            <span class="who-date">Jun 19, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Boarding</span>
+          </div>
+          <p class="quote">This was my first time boarding my cat and I&#x27;m so glad I picked Tama and Kana, they are amazing with cats. My cat was so well cared for while I was away and he adjusted to the new environment really quickly. I got lots of photos and updates. I didn&#x27;t worry about him once on my three week trip. They also ensured he received his medication every day. Highly recommend! I can see why they have so many 5 star reviews – they truly did treat my cat as their own.</p>
+          <div class="review-who">
+            <span class="who-name">Lisa R.</span>
+            <span class="who-date">May 28, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Drop-In Visits</span>
+          </div>
+          <p class="quote">Tama and Kana were just wonderful and did a great job looking after my fur baby!</p>
+          <div class="review-who">
+            <span class="who-name">Tris W.</span>
+            <span class="who-date">May 23, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Drop-In Visits</span>
+          </div>
+          <p class="quote">Tama &amp; Kana were really incredible with our two cats. They sent photos of everything they did with and for our cats, and they clearly had a good time with them. Our cats were well looked after by them, and we appreciate it 🙏</p>
+          <div class="review-who">
+            <span class="who-name">David S.</span>
+            <span class="who-date">May 23, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Boarding</span>
+          </div>
+          <p class="quote">Kana and Tama took outstanding care of Poe and Cosita! Poe can be a bit skittish at the beginning but Kana worked really hard to earn his trust. We received multiple updates during their stay with them, which we greatly appreciated, as they gave us peace of mind while apart from Poe and Cosita. We would definitely book them again in the future! Thanks so much for everything!</p>
+          <div class="review-who">
+            <span class="who-name">Karen U.</span>
+            <span class="who-date">May 18, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Drop-In Visits</span>
+          </div>
+          <p class="quote">This was my first Rover experience and it was awesome to say the least. I booked Tama &amp; Kana for two weeks of drop-in visits for my two cats. They were super responsive in terms of communication from beginning until the end. Tama &amp; Kana went above and beyond. I received detailed picture updates for every single visit which really gave me peace of mind during my travels. Besides maintaining litter box, food and water, they even helped vacuum and tidy up around litter boxes. Their love for cats really showed through their attentiveness and interactions with the kitties. I would definitely rebook with Tama &amp; Kana if I needed someone to take care of my cats during future travels.</p>
+          <div class="review-who">
+            <span class="who-name">Thai N.</span>
+            <span class="who-date">May 17, 2026</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <span class="review-tag">Drop-In Visits</span>
+          </div>
+          <p class="quote">Amazing cat sitter — very friendly, reliable, and caring. Took great care of our cat, gave regular updates, and made us feel completely at ease while we were away. Highly recommend!</p>
+          <div class="review-who">
+            <span class="who-name">Sami N.</span>
+            <span class="who-date">May 07, 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- Contact ---------- -->
+  <section id="contact">
+    <div class="wrap contact">
+      <div class="contact-left">
+        <h2>Get in touch</h2>
+        <p>Message us on WhatsApp any time, or leave your details in the form and we'll get back to you the same day. Drop-in visits are free within 4km of Science World — a little further out just adds $1/km for travel.</p>
+
+        <div class="whatsapp-box">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.48 1.32 5L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/></svg>
+          <div>
+            <div class="lbl">WhatsApp</div>
+            <div class="num">+66 81 399 9389</div>
+          </div>
+          <a class="link-btn" href="https://wa.me/66813999389" target="_blank" rel="noopener">Open chat</a>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="field">
+            <label for="fname">Name</label>
+            <input type="text" id="fname" name="fname" required placeholder="Your name">
+          </div>
+          <div class="field">
+            <label for="fphone">Phone number</label>
+            <input type="tel" id="fphone" name="fphone" required placeholder="(604) 000-0000">
+          </div>
+        </div>
+        <div class="field">
+          <label for="fservice">Which service?</label>
+          <select id="fservice" name="fservice">
+            <option>Drop-in visits</option>
+            <option>Boarding at your home</option>
+            <option>Not sure yet, just have questions</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="fmsg">Tell us about your cat / dates needed</label>
+          <textarea id="fmsg" name="fmsg" placeholder="E.g. 1 cat, 2 years old, need boarding Mar 12–15"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.48 1.32 5L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/></svg>
+          Send via WhatsApp
+        </button>
+        <p class="form-note">This opens WhatsApp with your details filled in automatically.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <div class="brand">
+      <svg class="paw" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 10.2c1.1 0 2-1.1 2-2.5s-.9-2.5-2-2.5-2 1.1-2 2.5.9 2.5 2 2.5zm5.3-1.5c1.1 0 2-1.2 2-2.7S10.9 3.3 9.8 3.3s-2 1.2-2 2.7 .9 2.7 2 2.7zm4.4 0c1.1 0 2-1.2 2-2.7s-.9-2.7-2-2.7-2 1.2-2 2.7 .9 2.7 2 2.7zm4.3 1.5c1.1 0 2-1.1 2-2.5s-.9-2.5-2-2.5-2 1.1-2 2.5.9 2.5 2 2.5zM12 11c-2.9 0-6.8 3.4-6.8 6.3 0 1.5 1.1 2.4 2.6 2.4 1.1 0 1.9-.6 2.9-.6.8 0 1.6.6 2.8.6 1.6 0 3.1-.9 3.1-2.6 0-2.9-3.7-6.1-6.6-6.1z"/></svg>
+      TamaKana PetCare
+    </div>
+    <div class="copy">© 2026 TamaKana PetCare · Drop-in visits within Vancouver, free within 4km of Science World</div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Contact form -> builds a WhatsApp message
+  const WHATSAPP_NUMBER = '66813999389';
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('fname').value.trim();
+    const phone = document.getElementById('fphone').value.trim();
+    const service = document.getElementById('fservice').value;
+    const msg = document.getElementById('fmsg').value.trim();
+
+    const text =
+      `Hi! I'm interested in: ${service}\n` +
+      `Name: ${name}\n` +
+      `Phone: ${phone}\n` +
+      (msg ? `Details: ${msg}` : '');
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+  });
+</script>
+
+</body>
+</html>
