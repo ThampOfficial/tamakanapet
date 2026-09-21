@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Photos — TamaKana PetCare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F3EFE6;
+    --surface: #FFFCF6;
+    --surface-2: #EAE2D0;
+    --ink: #232E27;
+    --ink-soft: #56635A;
+    --sage: #62735A;
+    --sage-deep: #47563F;
+    --ochre: #C4813A;
+    --ochre-deep: #A9691F;
+    --line: #D9CFB8;
+    --max: 1100px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Work Sans', sans-serif; font-size:16px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Fraunces', serif; margin:0; color:var(--ink); font-weight:600; letter-spacing:-0.01em;}
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 28px;}
+
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(243,239,230,0.92); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px; max-width:var(--max); margin:0 auto;
+  }
+  .brand{
+    font-family:'Fraunces', serif; font-weight:600; font-size:20px;
+    display:flex; align-items:center; gap:8px; text-decoration:none;
+  }
+  .brand .paw{width:22px; height:22px; flex-shrink:0;}
+  .back-link{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:14.5px; color:var(--ink-soft); text-decoration:none;
+  }
+  .back-link:hover{color:var(--sage-deep);}
+  .back-link svg{width:16px; height:16px;}
+
+  .page-head{padding:56px 0 8px;}
+  .page-head p{color:var(--ink-soft); font-size:17px; max-width:60ch; margin-top:10px;}
+
+  .gallery-status{
+    padding:60px 0; text-align:center; color:var(--ink-soft); font-size:15px;
+  }
+  .gallery-status.error{color:var(--ochre-deep);}
+
+  .gallery{
+    column-count:3; column-gap:18px; padding:32px 0 72px;
+  }
+  .gallery-item{
+    break-inside:avoid; margin-bottom:18px; border-radius:16px; overflow:hidden;
+    border:1px solid var(--line); background:var(--surface); cursor:pointer;
+    position:relative;
+  }
+  .gallery-item img{width:100%; display:block; transition:transform .25s;}
+  .gallery-item:hover img{transform:scale(1.03);}
+  .gallery-caption{
+    padding:12px 14px; font-size:13.5px; color:var(--ink-soft);
+  }
+
+  @media (max-width:860px){ .gallery{column-count:2;} }
+  @media (max-width:560px){ .gallery{column-count:1;} }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox{
+    position:fixed; inset:0; background:rgba(35,46,39,0.94); z-index:100;
+    display:none; align-items:center; justify-content:center; padding:24px;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:90vw; max-height:80vh; border-radius:10px;}
+  .lightbox-caption{color:#F3EFE6; text-align:center; margin-top:14px; font-size:14.5px;}
+  .lightbox-close, .lightbox-prev, .lightbox-next{
+    position:absolute; background:rgba(255,255,255,0.12); border:none; color:#fff;
+    border-radius:50%; width:44px; height:44px; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:background .15s;
+  }
+  .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover{background:rgba(255,255,255,0.24);}
+  .lightbox-close{top:20px; right:20px;}
+  .lightbox-prev{left:20px; top:50%; transform:translateY(-50%);}
+  .lightbox-next{right:20px; top:50%; transform:translateY(-50%);}
+  .lightbox svg{width:22px; height:22px;}
+
+  footer{border-top:1px solid var(--line); padding:32px 0; margin-top:20px;}
+  footer .copy{font-size:13.5px; color:var(--ink-soft); text-align:center;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="Index_tamakana.html">
+      <svg class="paw" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 10.2c1.1 0 2-1.1 2-2.5s-.9-2.5-2-2.5-2 1.1-2 2.5.9 2.5 2 2.5zm5.3-1.5c1.1 0 2-1.2 2-2.7S10.9 3.3 9.8 3.3s-2 1.2-2 2.7 .9 2.7 2 2.7zm4.4 0c1.1 0 2-1.2 2-2.7s-.9-2.7-2-2.7-2 1.2-2 2.7 .9 2.7 2 2.7zm4.3 1.5c1.1 0 2-1.1 2-2.5s-.9-2.5-2-2.5-2 1.1-2 2.5.9 2.5 2 2.5zM12 11c-2.9 0-6.8 3.4-6.8 6.3 0 1.5 1.1 2.4 2.6 2.4 1.1 0 1.9-.6 2.9-.6.8 0 1.6.6 2.8.6 1.6 0 3.1-.9 3.1-2.6 0-2.9-3.7-6.1-6.6-6.1z"/></svg>
+      TamaKana PetCare
+    </a>
+    <a class="back-link" href="Index_tamakana.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to home
+    </a>
+  </div>
+</header>
+
+<div class="wrap page-head">
+  <h1>Happy clients, happy cats</h1>
+  <p>A running album from our visits and stays. New photos appear here automatically — no site edits needed on our end.</p>
+</div>
+
+<div class="wrap">
+  <div id="galleryStatus" class="gallery-status">Loading photos…</div>
+  <div id="gallery" class="gallery"></div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <button class="lightbox-prev" id="lbPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <button class="lightbox-next" id="lbNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+  <div>
+    <img id="lbImg" src="" alt="">
+    <div class="lightbox-caption" id="lbCaption"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p class="copy">© 2026 TamaKana PetCare · Vancouver, BC</p>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   CONFIG — edit these 4 lines to point at your GitHub repo.
+   You can edit this file directly on github.com (pencil icon),
+   no local tools needed.
+   ========================================================= */
+const GITHUB_OWNER  = "your-github-username";   // e.g. "tamakana-petcare"
+const GITHUB_REPO   = "your-repo-name";         // e.g. "tamakana-site"
+const GITHUB_BRANCH = "main";                   // usually "main"
+const GITHUB_FOLDER = "client-photos";          // the folder in the repo holding the images
+/* ========================================================= */
+
+const IMAGE_EXT = /\.(jpe?g|png|webp|gif)$/i;
+
+function niceCaption(filename){
+  let name = filename.replace(IMAGE_EXT, "");
+  // strip a leading date prefix like 2026-09-15_ or 2026-09-15-
+  name = name.replace(/^\d{4}-\d{2}-\d{2}[_-]/, "");
+  name = name.replace(/[_-]+/g, " ").trim();
+  return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+async function loadGallery(){
+  const statusEl = document.getElementById('galleryStatus');
+  const galleryEl = document.getElementById('gallery');
+
+  if(GITHUB_OWNER === "your-github-username" || GITHUB_REPO === "your-repo-name"){
+    statusEl.textContent = "Set GITHUB_OWNER and GITHUB_REPO at the top of this file's <script> to connect your repo.";
+    statusEl.classList.add('error');
+    return;
+  }
+
+  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FOLDER}?ref=${GITHUB_BRANCH}`;
+
+  try{
+    const res = await fetch(apiUrl);
+    if(!res.ok){
+      if(res.status === 404){
+        statusEl.textContent = `Couldn't find the "${GITHUB_FOLDER}" folder in ${GITHUB_OWNER}/${GITHUB_REPO}. Check the repo name, branch, and folder name above, and make sure the repo is public.`;
+      } else if(res.status === 403){
+        statusEl.textContent = "GitHub's photo API is temporarily rate-limited (this resets after an hour). Refresh again shortly.";
+      } else {
+        statusEl.textContent = "Couldn't load photos right now (" + res.status + "). Try refreshing.";
+      }
+      statusEl.classList.add('error');
+      return;
+    }
+
+    const files = await res.json();
+    const images = files.filter(f => f.type === "file" && IMAGE_EXT.test(f.name));
+
+    if(images.length === 0){
+      statusEl.textContent = "No photos yet — add some to the " + GITHUB_FOLDER + " folder on GitHub and they'll show up here.";
+      return;
+    }
+
+    // newest-looking filenames first (works well with date-prefixed names like 2026-09-15_fluffy.jpg)
+    images.sort((a, b) => b.name.localeCompare(a.name));
+
+    statusEl.style.display = 'none';
+
+    images.forEach((file, i) => {
+      const item = document.createElement('div');
+      item.className = 'gallery-item';
+      item.innerHTML = `<img src="${file.download_url}" alt="${niceCaption(file.name)}" loading="lazy">
+                         <div class="gallery-caption">${niceCaption(file.name)}</div>`;
+      item.addEventListener('click', () => openLightbox(i));
+      galleryEl.appendChild(item);
+    });
+
+    window.__galleryImages = images;
+  }catch(err){
+    statusEl.textContent = "Couldn't load photos right now. Check your connection and refresh.";
+    statusEl.classList.add('error');
+  }
+}
+
+/* ---------- Lightbox ---------- */
+let currentIndex = 0;
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbCaption = document.getElementById('lbCaption');
+
+function openLightbox(i){
+  currentIndex = i;
+  showLightboxImage();
+  lightbox.classList.add('open');
+}
+function showLightboxImage(){
+  const images = window.__galleryImages || [];
+  if(!images.length) return;
+  const file = images[currentIndex];
+  lbImg.src = file.download_url;
+  lbImg.alt = niceCaption(file.name);
+  lbCaption.textContent = niceCaption(file.name);
+}
+function closeLightbox(){ lightbox.classList.remove('open'); }
+function nextImage(){
+  const images = window.__galleryImages || [];
+  currentIndex = (currentIndex + 1) % images.length;
+  showLightboxImage();
+}
+function prevImage(){
+  const images = window.__galleryImages || [];
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  showLightboxImage();
+}
+
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lbNext').addEventListener('click', nextImage);
+document.getElementById('lbPrev').addEventListener('click', prevImage);
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => {
+  if(!lightbox.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowRight') nextImage();
+  if(e.key === 'ArrowLeft') prevImage();
+});
+
+loadGallery();
+</script>
+
+</body>
+</html>
