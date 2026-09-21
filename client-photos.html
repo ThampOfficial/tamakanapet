@@ -167,23 +167,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 6px;
     }
 
     .pet-name {
       font-size: 1.1rem;
       font-weight: 700;
       color: var(--primary);
-    }
-
-    .visit-date {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .photo-caption {
-      font-size: 0.95rem;
-      color: var(--text-main);
+      text-transform: capitalize;
     }
 
     /* ---------- Modal / Lightbox ---------- */
@@ -291,98 +281,8 @@
     <!-- ---------- Gallery Section ---------- -->
     <section class="gallery-section">
       <div class="wrap">
-        <div class="gallery-grid">
-
-          <!-- Photo Card 1 -->
-          <div class="photo-card">
-            <div class="photo-wrapper" onclick="openLightbox('https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80')">
-              <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=600&q=80" alt="Orange cat relaxing">
-              <span class="photo-tag">Drop-In Visit</span>
-            </div>
-            <div class="photo-info">
-              <div class="photo-title-row">
-                <span class="pet-name">Milo</span>
-                <span class="visit-date">Aug 18, 2026</span>
-              </div>
-              <p class="photo-caption">Milo enjoyed his afternoon treat and extra chin scratches during our 30-minute drop-in!</p>
-            </div>
-          </div>
-
-          <!-- Photo Card 2 -->
-          <div class="photo-card">
-            <div class="photo-wrapper" onclick="openLightbox('https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=800&q=80')">
-              <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=600&q=80" alt="Tabby cat playing">
-              <span class="photo-tag">House Sitting</span>
-            </div>
-            <div class="photo-info">
-              <div class="photo-title-row">
-                <span class="pet-name">Luna & Leo</span>
-                <span class="visit-date">Aug 05, 2026</span>
-              </div>
-              <p class="photo-caption">Overnight stay near Olympic Village. Wand playtime was a huge success tonight!</p>
-            </div>
-          </div>
-
-          <!-- Photo Card 3 -->
-          <div class="photo-card">
-            <div class="photo-wrapper" onclick="openLightbox('https://images.unsplash.com/photo-1533738363-b7f9aef128ce?auto=format&fit=crop&w=800&q=80')">
-              <img src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?auto=format&fit=crop&w=600&q=80" alt="Cat with cool glasses">
-              <span class="photo-tag">Drop-In Visit</span>
-            </div>
-            <div class="photo-info">
-              <div class="photo-title-row">
-                <span class="pet-name">Oliver</span>
-                <span class="visit-date">Jul 28, 2026</span>
-              </div>
-              <p class="photo-caption">Oliver checking in to make sure all food bowls are properly filled and fresh water is served.</p>
-            </div>
-          </div>
-
-          <!-- Photo Card 4 -->
-          <div class="photo-card">
-            <div class="photo-wrapper" onclick="openLightbox('https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=800&q=80')">
-              <img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=600&q=80" alt="Fluffy cat sleeping">
-              <span class="photo-tag">House Sitting</span>
-            </div>
-            <div class="photo-info">
-              <div class="photo-title-row">
-                <span class="pet-name">Bella</span>
-                <span class="visit-date">Jul 12, 2026</span>
-              </div>
-              <p class="photo-caption">Bella felt completely comfortable taking her afternoon nap right beside us on the couch.</p>
-            </div>
-          </div>
-
-          <!-- Photo Card 5 -->
-          <div class="photo-card">
-            <div class="photo-wrapper" onclick="openLightbox('https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=800&q=80')">
-              <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=600&q=80" alt="Curious cat looking at camera">
-              <span class="photo-tag">Drop-In Visit</span>
-            </div>
-            <div class="photo-info">
-              <div class="photo-title-row">
-                <span class="pet-name">Mochi</span>
-                <span class="visit-date">Jun 30, 2026</span>
-              </div>
-              <p class="photo-caption">Quick morning visit for sweet Mochi. Litter box cleaned, plants watered, and lots of pets!</p>
-            </div>
-          </div>
-
-          <!-- Photo Card 6 -->
-          <div class="photo-card">
-            <div class="photo-wrapper" onclick="openLightbox('https://images.unsplash.com/photo-1561948955-570b270e7c36?auto=format&fit=crop&w=800&q=80')">
-              <img src="https://images.unsplash.com/photo-1561948955-570b270e7c36?auto=format&fit=crop&w=600&q=80" alt="White cat near window">
-              <span class="photo-tag">House Sitting</span>
-            </div>
-            <div class="photo-info">
-              <div class="photo-title-row">
-                <span class="pet-name">Simba</span>
-                <span class="visit-date">Jun 15, 2026</span>
-              </div>
-              <p class="photo-caption">Window bird-watching time! Simba loved keeping an eye on False Creek from his perch.</p>
-            </div>
-          </div>
-
+        <div class="gallery-grid" id="galleryGrid">
+          <p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Loading photos...</p>
         </div>
       </div>
     </section>
@@ -426,6 +326,65 @@
       modal.classList.remove('open');
       modalImg.src = '';
     }
+
+    // GitHub Auto Fetching Logic
+    const GITHUB_USERNAME = 'ThampOfficial';
+    const REPO_NAME = 'tamakanapet';
+    const FOLDER_PATH = 'client-photos';
+
+    const galleryGrid = document.getElementById('galleryGrid');
+
+    async function loadPhotosFromGitHub() {
+      const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FOLDER_PATH}`;
+
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error('Failed to fetch image list');
+        
+        const files = await response.json();
+        
+        // กรองเอาเฉพาะไฟล์รูปภาพ
+        const imageFiles = files.filter(file => 
+          file.type === 'file' && file.name.match(/\.(jpg|jpeg|png|webp|gif)$/i)
+        );
+
+        if (imageFiles.length === 0) {
+          galleryGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">No photos found in client-photos folder.</p>';
+          return;
+        }
+
+        galleryGrid.innerHTML = '';
+
+        imageFiles.forEach(file => {
+          // ดึงภาพความละเอียดสูงผ่าน CDN
+          const imageUrl = `https://cdn.jsdelivr.net/gh/${GITHUB_USERNAME}/${REPO_NAME}@main/${FOLDER_PATH}/${file.name}`;
+          
+          // แปลงชื่อไฟล์ เช่น "milo_aug18.jpg" ให้กลายเป็นชื่อ "milo aug18"
+          const petName = file.name.split('.')[0].replace(/[-_]/g, ' ');
+
+          const cardHTML = `
+            <div class="photo-card">
+              <div class="photo-wrapper" onclick="openLightbox('${imageUrl}')">
+                <img src="${imageUrl}" alt="${petName}" loading="lazy">
+                <span class="photo-tag">Client Update</span>
+              </div>
+              <div class="photo-info">
+                <div class="photo-title-row">
+                  <span class="pet-name">${petName}</span>
+                </div>
+              </div>
+            </div>
+          `;
+          galleryGrid.insertAdjacentHTML('beforeend', cardHTML);
+        });
+
+      } catch (error) {
+        console.error('Error:', error);
+        galleryGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Failed to load photos. Please check back later.</p>';
+      }
+    }
+
+    loadPhotosFromGitHub();
   </script>
 </body>
 </html>
